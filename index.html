@@ -213,61 +213,72 @@
 
         .gift-wrapper {
             position: relative;
-            width: 280px;
-            height: 320px;
+            width: 300px;
+            height: 340px;
             cursor: pointer;
             animation: giftFloat 2s ease-in-out infinite;
             margin-bottom: 40px;
+            perspective: 1000px;
         }
 
         .gift-box {
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, #87ceeb 0%, #b0e0e6 50%, #87ceeb 100%);
-            border-radius: 8px;
+            background: linear-gradient(135deg, #1a5fb0 0%, #2563eb 30%, #3b82f6 60%, #60a5fa 100%);
+            border-radius: 20px;
             position: relative;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset -5px -5px 15px rgba(0, 0, 0, 0.2),
+                inset 5px 5px 15px rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5em;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(96, 165, 250, 0.5);
+            transform: rotateX(5deg) rotateY(-5deg);
         }
 
         .gift-box.unwrapped {
             animation: unwrap 0.6s ease-out forwards;
         }
 
-        /* Gift Ribbon - Realistic flat design */
+        /* Gift Ribbons - 3D Orange/Gold */
         .gift-ribbon-vertical {
             position: absolute;
-            width: 40px;
+            width: 35px;
             height: 100%;
-            background: linear-gradient(90deg, #d4a574 0%, #e8d5b7 50%, #d4a574 100%);
+            background: linear-gradient(90deg, #b8860b 0%, #ffa500 30%, #ff8c00 50%, #ffa500 70%, #b8860b 100%);
             left: 50%;
             transform: translateX(-50%);
             z-index: 5;
-            box-shadow: inset -1px 0 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                inset -3px 0 8px rgba(0, 0, 0, 0.3),
+                0 0 10px rgba(255, 152, 0, 0.6);
+            border-radius: 3px;
         }
 
         .gift-ribbon-horizontal {
             position: absolute;
-            height: 40px;
+            height: 35px;
             width: 100%;
-            background: linear-gradient(180deg, #d4a574 0%, #e8d5b7 50%, #d4a574 100%);
+            background: linear-gradient(180deg, #b8860b 0%, #ffa500 30%, #ff8c00 50%, #ffa500 70%, #b8860b 100%);
             top: 50%;
             transform: translateY(-50%);
             z-index: 4;
-            box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                inset 0 -3px 8px rgba(0, 0, 0, 0.3),
+                0 0 10px rgba(255, 152, 0, 0.6);
+            border-radius: 3px;
         }
 
-        /* Bow - Realistic flat */
+        /* Bow - 3D Orange/Gold */
         .bow {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            top: -30px;
+            width: 120px;
+            height: 100px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -275,33 +286,41 @@
 
         .bow-piece {
             position: absolute;
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, #d4a574 0%, #e8d5b7 100%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffa500 0%, #ff8c00 50%, #ff7700 100%);
             border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.4),
+                inset -2px -2px 5px rgba(0, 0, 0, 0.2),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.3);
         }
 
         .bow-piece-left {
-            left: -20px;
-            animation: none;
+            left: -5px;
+            top: 10px;
+            transform: rotateZ(-35deg);
         }
 
         .bow-piece-right {
-            right: -20px;
-            animation: none;
+            right: -5px;
+            top: 10px;
+            transform: rotateZ(35deg);
         }
 
         .bow-center {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #d4a574 0%, #e8d5b7 100%);
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ffa500 0%, #ff8c00 50%, #ff7700 100%);
             border-radius: 50%;
-            top: 20px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 6px 15px rgba(0, 0, 0, 0.4),
+                inset -2px -2px 5px rgba(0, 0, 0, 0.2),
+                inset 2px 2px 5px rgba(255, 255, 255, 0.3);
         }
 
         .gift-content {
@@ -387,8 +406,8 @@
         }
 
         @keyframes giftFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            0%, 100% { transform: translateY(0px) rotateX(5deg) rotateY(-5deg); }
+            50% { transform: translateY(-20px) rotateX(5deg) rotateY(-5deg); }
         }
 
         @keyframes fadeInDown {
@@ -431,14 +450,14 @@
 
         @keyframes unwrap {
             0% {
-                transform: scale(1);
+                transform: scale(1) rotateX(5deg) rotateY(-5deg);
                 opacity: 1;
             }
             50% {
-                transform: scale(1.05);
+                transform: scale(1.1) rotateX(20deg) rotateY(20deg);
             }
             100% {
-                transform: scale(0.8);
+                transform: scale(0.5) rotateX(90deg) rotateY(90deg);
                 opacity: 0;
             }
         }
@@ -460,7 +479,7 @@
             .cover-subtitle { font-size: 1.1em; }
             .clock-emoji { font-size: 4em; }
             .letter-container { padding: 35px; }
-            .gift-wrapper { width: 240px; height: 280px; }
+            .gift-wrapper { width: 260px; height: 300px; }
             .drawing-container { padding: 30px; }
         }
     </style>
@@ -510,9 +529,9 @@
             <div class="gift-box" id="giftBox">
                 <div class="gift-content">
                     <div style="font-size: 2.5em; margin-bottom: 10px;">🎨</div>
-                    <p style="color: #4a9cc6; font-weight: 400;">Unwrapped!</p>
+                    <p style="color: #fff; font-weight: 400;">Unwrapped!</p>
                 </div>
-                <span>Click to unwrap</span>
+                <span style="color: white; font-weight: 300; font-size: 0.9em;">Click to unwrap</span>
             </div>
         </div>
         <div class="gift-instruction">Click the gift to reveal →</div>
@@ -549,7 +568,7 @@
                 const giftBox = document.getElementById('giftBox');
                 giftBox.classList.remove('unwrapped');
                 giftBox.querySelector('.gift-content').classList.remove('revealed');
-                giftBox.innerHTML = '<span>Click to unwrap</span>';
+                giftBox.innerHTML = '<span style="color: white; font-weight: 300; font-size: 0.9em;">Click to unwrap</span>';
                 giftBox.style.cursor = 'auto';
             }
         }
@@ -584,7 +603,7 @@
 
             setTimeout(() => {
                 giftBox.style.cursor = 'pointer';
-                giftBox.innerHTML = '<div class="gift-content revealed"><div style="font-size: 2.5em; margin-bottom: 10px;">🎨</div><p style="color: #4a9cc6; font-weight: 400;">Click to continue →</p></div>';
+                giftBox.innerHTML = '<div class="gift-content revealed"><div style="font-size: 2.5em; margin-bottom: 10px;">🎨</div><p style="color: #fff; font-weight: 400;">Click to continue →</p></div>';
                 giftBox.onclick = () => nextPage();
             }, 600);
         }
