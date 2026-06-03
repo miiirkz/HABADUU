@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Gift For You</title>
+    <title>Happy Birthday, Raynae!!</title>
     <style>
         * {
             margin: 0;
@@ -85,12 +85,13 @@
         }
 
         .cover-content h1 {
-            font-size: 3.5em;
+            font-size: 2.8em;
             margin-bottom: 10px;
             font-weight: 300;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             color: #1a3a52;
+            line-height: 1.4;
         }
 
         .cover-subtitle {
@@ -147,10 +148,12 @@
             padding: 60px;
             border-radius: 15px;
             max-width: 650px;
+            max-height: 80vh;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             animation: slideInUp 0.8s ease-out;
             position: relative;
             border: 1px solid rgba(74, 156, 198, 0.2);
+            overflow-y: auto;
         }
 
         .letter-container::before {
@@ -184,6 +187,7 @@
 
         .letter-content p {
             margin-bottom: 15px;
+            white-space: pre-wrap;
         }
 
         .letter-signature {
@@ -475,9 +479,8 @@
         }
 
         @media (max-width: 768px) {
-            .cover-content h1 { font-size: 2.5em; }
+            .cover-content h1 { font-size: 2em; }
             .cover-subtitle { font-size: 1.1em; }
-            .clock-emoji { font-size: 4em; }
             .letter-container { padding: 35px; }
             .gift-wrapper { width: 260px; height: 300px; }
             .drawing-container { padding: 30px; }
@@ -488,9 +491,8 @@
     <!-- Page 1: Cover -->
     <div class="page page-cover active">
         <div class="cover-content">
-            <div class="clock-emoji">⏰</div>
-            <h1>A Gift For You</h1>
-            <p class="cover-subtitle">A gift made just for you</p>
+            <h1>ꫂ᭪݁. ࣪ ִֶָ☾. ૮ ྀིᴗ͈ . ᴗ͈ ྀིა. 𖤓 ｡𖦹°‧ ⋆☀︎. ˚˖𓍢ִ🍓. ݁𐙚</h1>
+            <p class="cover-subtitle">Keep on going with your silly dream :)</p>
             <button class="btn" onclick="nextPage()">Begin</button>
         </div>
     </div>
@@ -498,16 +500,19 @@
     <!-- Page 2: Letter -->
     <div class="page page-letter">
         <div class="letter-container">
-            <h2>A Letter For You</h2>
+            <h2>Happy Birthday, Raynae!!</h2>
             <div class="letter-content">
-                <p>Some moments are timeless. And in this vast expanse of moments, I'm grateful for the ones we've shared.</p>
-                <p>This gift is a reflection of that gratitude – something created with care and thoughtfulness, just for you. It's a small reminder of how much your friendship means to me.</p>
-                <p>Time moves forward, but there are certain people and moments that feel eternal. You're one of them.</p>
-                <p>I hope this small gesture brings you joy, and that you know how deeply appreciated you are.</p>
+                <p>I'm sorry this gift is a little late. I spent way too much time thinking about how I should give it to you, and then I procrastinated after deciding to code it. But as they say, better late than never!
+
+Anyway, I wish you all the best in life. May this year bring you happiness, good health, success, and countless wonderful memories. I hope you continue to achieve your goals, discover new opportunities, and find joy in both the big and little things that come your way.
+
+Thank you for being such an amazing person. Your kindness, personality, and the positive energy you bring to others are truly appreciated. No matter what challenges come your way, I hope you always remember how capable and valued you are.
+
+The greatest things in life are often a matter of time. Thank you for being one of them. Wishing you the very best in the years ahead. Here's to another year of growth, achievements, exciting milestones, and many more unforgettable moments to come!</p>
             </div>
             <div class="letter-signature">
-                With all my affection,<br>
-                Your friend
+                Love,<br>
+                Mirka &lt;3
             </div>
             <div class="letter-buttons">
                 <button class="btn" onclick="previousPage()">← Back</button>
