@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift For You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 50%, #4a9cc6 100%);
+            min-height: 100vh;
+        }
+
+        /* Starfield Background */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 10px, #fff, rgba(0,0,0,0));
+            background-size: 200px 200px;
+            animation: twinkle 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Page Container */
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 2;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Page 1: Cover */
+        .page-cover {
+            background: linear-gradient(135deg, #e8e6e1 0%, #f5f3f0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #1a3a52;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Clock background SVG overlay */
+        .page-cover::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"%3E%3Ccircle cx="200" cy="200" r="190" fill="none" stroke="%231a3a52" stroke-width="8"/%3E%3Ccircle cx="200" cy="200" r="170" fill="none" stroke="%231a3a52" stroke-width="2"/%3E%3Cg stroke="%231a3a52" stroke-width="3" fill="none"%3E%3Cline x1="200" y1="40" x2="200" y2="70"/%3E%3Cline x1="200" y1="330" x2="200" y2="360"/%3E%3Cline x1="40" y1="200" x2="70" y2="200"/%3E%3Cline x1="330" y1="200" x2="360" y2="200"/%3E%3Cline x1="70" y1="70" x2="92" y2="92"/%3E%3Cline x1="308" y1="308" x2="330" y2="330"/%3E%3Cline x1="330" y1="70" x2="308" y2="92"/%3E%3Cline x1="92" y1="308" x2="70" y2="330"/%3E%3C/g%3E%3Ccircle cx="200" cy="200" r="120" fill="%23f5f3f0" stroke="%231a3a52" stroke-width="3"/%3E%3Ctext x="200" y="155" font-size="18" fill="%231a3a52" text-anchor="middle" font-family="Georgia" font-weight="bold"%3E12%3C/text%3E%3Ctext x="275" y="210" font-size="18" fill="%231a3a52" text-anchor="middle" font-family="Georgia" font-weight="bold"%3E3%3C/text%3E%3Ctext x="200" y="250" font-size="18" fill="%231a3a52" text-anchor="middle" font-family="Georgia" font-weight="bold"%3E6%3C/text%3E%3Ctext x="125" y="210" font-size="18" fill="%231a3a52" text-anchor="middle" font-family="Georgia" font-weight="bold"%3E9%3C/text%3E%3Ccircle cx="200" cy="200" r="8" fill="%231a3a52"/%3E%3Cline x1="200" y1="200" x2="200" y2="120" stroke="%231a3a52" stroke-width="3" stroke-linecap="round"/%3E%3Cline x1="200" y1="200" x2="260" y2="200" stroke="%231a3a52" stroke-width="2" stroke-linecap="round"/%3E%3C/svg%3E');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .cover-content {
+            animation: fadeInDown 1.2s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-content h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #1a3a52;
+        }
+
+        .cover-subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            font-style: italic;
+            opacity: 0.7;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            color: #1a3a52;
+        }
+
+        .clock-emoji {
+            font-size: 5em;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .btn {
+            background: #1a3a52;
+            color: #f5f3f0;
+            border: 2px solid #1a3a52;
+            padding: 13px 45px;
+            font-size: 1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(26, 58, 82, 0.2);
+            background: #2d5a7b;
+            border-color: #2d5a7b;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Page 2: Letter */
+        .page-letter {
+            background: linear-gradient(135deg, rgba(207, 232, 245, 0.95) 0%, rgba(174, 213, 242, 0.95) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .letter-container {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 60px;
+            border-radius: 15px;
+            max-width: 650px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: slideInUp 0.8s ease-out;
+            position: relative;
+            border: 1px solid rgba(74, 156, 198, 0.2);
+        }
+
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: #cfe8f5;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .letter-container h2 {
+            color: #4a9cc6;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .letter-content {
+            color: #333;
+            line-height: 1.9;
+            font-size: 1.05em;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .letter-content p {
+            margin-bottom: 15px;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            color: #4a9cc6;
+            margin-top: 30px;
+            font-weight: 300;
+        }
+
+        .letter-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 35px;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        /* Page 3: Gift Unwrap */
+        .page-gift {
+            background: linear-gradient(135deg, rgba(74, 156, 198, 0.85) 0%, rgba(45, 90, 123, 0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-wrapper {
+            position: relative;
+            width: 280px;
+            height: 320px;
+            cursor: pointer;
+            animation: giftFloat 2s ease-in-out infinite;
+            margin-bottom: 40px;
+        }
+
+        .gift-box {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #87ceeb 0%, #b0e0e6 50%, #87ceeb 100%);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .gift-box.unwrapped {
+            animation: unwrap 0.6s ease-out forwards;
+        }
+
+        /* Gift Ribbon - Realistic flat design */
+        .gift-ribbon-vertical {
+            position: absolute;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(90deg, #d4a574 0%, #e8d5b7 50%, #d4a574 100%);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            box-shadow: inset -1px 0 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .gift-ribbon-horizontal {
+            position: absolute;
+            height: 40px;
+            width: 100%;
+            background: linear-gradient(180deg, #d4a574 0%, #e8d5b7 50%, #d4a574 100%);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 4;
+            box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Bow - Realistic flat */
+        .bow {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .bow-piece {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #d4a574 0%, #e8d5b7 100%);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        .bow-piece-left {
+            left: -20px;
+            animation: none;
+        }
+
+        .bow-piece-right {
+            right: -20px;
+            animation: none;
+        }
+
+        .bow-center {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #d4a574 0%, #e8d5b7 100%);
+            border-radius: 50%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .gift-content {
+            opacity: 0;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .gift-content.revealed {
+            opacity: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .gift-instruction {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Page 4: Drawing */
+        .page-drawing {
+            background: linear-gradient(135deg, rgba(74, 156, 198, 0.9) 0%, rgba(45, 90, 123, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .drawing-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 800px;
+            max-height: 650px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 0.8s ease-out;
+            overflow: auto;
+            border: 1px solid rgba(74, 156, 198, 0.2);
+        }
+
+        .drawing-container h2 {
+            color: #4a9cc6;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .drawing-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #cfe8f5 0%, #a8d8f0 100%);
+            padding: 20px;
+        }
+
+        .drawing-message {
+            color: #555;
+            text-align: center;
+            font-size: 1.05em;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .final-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 35px;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes giftFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes unwrap {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotateZ(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cover-content h1 { font-size: 2.5em; }
+            .cover-subtitle { font-size: 1.1em; }
+            .clock-emoji { font-size: 4em; }
+            .letter-container { padding: 35px; }
+            .gift-wrapper { width: 240px; height: 280px; }
+            .drawing-container { padding: 30px; }
+            .page-cover::before { width: 400px; height: 400px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Cover -->
+    <div class="page page-cover active">
+        <div class="cover-content">
+            <div class="clock-emoji">⏰</div>
+            <h1>A Gift For You</h1>
+            <p class="cover-subtitle">A gift made just for you</p>
+            <button class="btn" onclick="nextPage()">Begin</button>
+        </div>
+    </div>
+
+    <!-- Page 2: Letter -->
+    <div class="page page-letter">
+        <div class="letter-container">
+            <h2>A Letter For You</h2>
+            <div class="letter-content">
+                <p>Some moments are timeless. And in this vast expanse of moments, I'm grateful for the ones we've shared.</p>
+                <p>This gift is a reflection of that gratitude – something created with care and thoughtfulness, just for you. It's a small reminder of how much your friendship means to me.</p>
+                <p>Time moves forward, but there are certain people and moments that feel eternal. You're one of them.</p>
+                <p>I hope this small gesture brings you joy, and that you know how deeply appreciated you are.</p>
+            </div>
+            <div class="letter-signature">
+                With all my affection,<br>
+                Your friend
+            </div>
+            <div class="letter-buttons">
+                <button class="btn" onclick="previousPage()">← Back</button>
+                <button class="btn" onclick="nextPage()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Gift Unwrap -->
+    <div class="page page-gift">
+        <div class="gift-wrapper" onclick="unwrapGift()">
+            <div class="bow">
+                <div class="bow-piece bow-piece-left"></div>
+                <div class="bow-piece bow-piece-right"></div>
+                <div class="bow-center"></div>
+            </div>
+            <div class="gift-ribbon-vertical"></div>
+            <div class="gift-ribbon-horizontal"></div>
+            <div class="gift-box" id="giftBox">
+                <div class="gift-content">
+                    <div style="font-size: 2.5em; margin-bottom: 10px;">🎨</div>
+                    <p style="color: #4a9cc6; font-weight: 400;">Unwrapped!</p>
+                </div>
+                <span>Click to unwrap</span>
+            </div>
+        </div>
+        <div class="gift-instruction">Click the gift to reveal →</div>
+    </div>
+
+    <!-- Page 4: Drawing -->
+    <div class="page page-drawing">
+        <div class="drawing-container">
+            <h2>✨ A Drawing For You ✨</h2>
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23cfe8f5;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23a8d8f0;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad)'/%3E%3Ccircle cx='200' cy='150' r='80' fill='%234a9cc6' opacity='0.15'/%3E%3Ctext x='200' y='165' font-size='32' text-anchor='middle' fill='%234a9cc6' font-family='Georgia' font-weight='300'%3EYour Drawing%3C/text%3E%3Ctext x='200' y='195' font-size='20' text-anchor='middle' fill='%234a9cc6' opacity='0.6' font-family='Georgia'%3EAdd your masterpiece here%3C/text%3E%3C/svg%3E" alt="Your drawing" class="drawing-image">
+            <div class="drawing-message">
+                <p>✨ This is where your beautiful artwork will be displayed ✨</p>
+                <p style="margin-top: 15px; font-size: 0.95em; color: #777;">To customize: Save your drawing as an image file and replace the placeholder image.</p>
+            </div>
+            <div class="final-buttons">
+                <button class="btn" onclick="previousPage()">← Back</button>
+                <button class="btn" onclick="startOver()">Start Over</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
+
+        function showPage(n) {
+            pages.forEach(page => page.classList.remove('active'));
+            pages[n].classList.add('active');
+            currentPage = n;
+            
+            // Reset gift box when returning to gift page
+            if (n === 2) {
+                const giftBox = document.getElementById('giftBox');
+                giftBox.classList.remove('unwrapped');
+                giftBox.querySelector('.gift-content').classList.remove('revealed');
+                giftBox.innerHTML = '<span>Click to unwrap</span>';
+                giftBox.style.cursor = 'auto';
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 0) {
+                showPage(currentPage - 1);
+            }
+        }
+
+        function startOver() {
+            showPage(0);
+        }
+
+        function unwrapGift() {
+            const giftBox = document.getElementById('giftBox');
+            if (giftBox.classList.contains('unwrapped')) {
+                nextPage();
+                return;
+            }
+
+            giftBox.classList.add('unwrapped');
+            giftBox.querySelector('.gift-content').classList.add('revealed');
+            
+            createConfetti();
+
+            setTimeout(() => {
+                giftBox.style.cursor = 'pointer';
+                giftBox.innerHTML = '<div class="gift-content revealed"><div style="font-size: 2.5em; margin-bottom: 10px;">🎨</div><p style="color: #4a9cc6; font-weight: 400;">Click to continue →</p></div>';
+                giftBox.onclick = () => nextPage();
+            }, 600);
+        }
+
+        function createConfetti() {
+            const confettiPieces = ['✨', '💫', '⭐', '🌟', '💕', '🎨'];
+            for (let i = 0; i < 35; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.pointerEvents = 'none';
+                confetti.textContent = confettiPieces[Math.floor(Math.random() * confettiPieces.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 50 + 'vh';
+                confetti.style.fontSize = (Math.random() * 1.5 + 1) + 'em';
+                confetti.style.animation = `confettiFall ${2.5 + Math.random() * 1.5}s ease-out forwards`;
+                confetti.style.zIndex = '1000';
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') previousPage();
+        });
+
+        showPage(0);
+    </script>
+</body>
+</html>
